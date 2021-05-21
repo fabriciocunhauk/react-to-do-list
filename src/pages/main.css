@@ -1,0 +1,13 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: #181824;
+}
+
+.main-container>img {
+    width: 100vw;
+    height: 330px;
+}
