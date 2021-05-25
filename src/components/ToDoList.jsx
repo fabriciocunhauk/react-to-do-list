@@ -3,20 +3,17 @@ import React, { useState } from 'react';
 import './to-do-list.css';
 
 function ToDoList() {
-    const [toDoContent, setToDoContent] = useState('');
+    const [inputContent, setInputContent] = useState("");
+    const [toDoContent, setToDoContent] = useState([]);
 
-    // function handleChange(event) {
-    //     setToDoContent(event);
-    // }
+    function handleChange(event) {
+        setInputContent(event.target.value);
+    }
 
     function handleSubmit(event) {
         event.preventDefault();
-
-        const toDos = document.querySelector('.to-dos-lists');
-        toDos.innerHTML = `<li>${toDoContent}</li>`;
-
-        const toDoInput = document.querySelector('#to-do');
-        toDoInput.value = "";
+        setToDoContent([...toDoContent, { toDoText: inputContent }]);
+        setInputContent("");
     }
 
     return (
@@ -28,14 +25,19 @@ function ToDoList() {
                         type="text"
                         name="to-do"
                         id="to-do"
+                        value={inputContent}
                         required
-                        onChange={(e) => setToDoContent(e.target.value)}
+                        onChange={handleChange}
                     />
                 </label>
             </form>
 
             <div className="to-dos">
-                <ul className="to-dos-lists"></ul>
+                <ul className="to-dos-lists">
+                    {toDoContent.map((todo, index) => {
+                        return <li key={index}>{todo.toDoText}</li>
+                    })}
+                </ul>
                 <div className="to-do-options">
                     <p>0 items left</p>
                     <ul>
