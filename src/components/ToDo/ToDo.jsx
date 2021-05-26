@@ -2,7 +2,7 @@ import React from 'react';
 
 import './to-do.css';
 
-const ToDo = ({ toDoText }) => {
+const ToDo = ({ toDoText, handleDelete }) => {
     return (
         <li className="todo">
             <span>
@@ -12,7 +12,7 @@ const ToDo = ({ toDoText }) => {
                 {toDoText.toUpperCase()}
             </span>
             <span>
-                <div className="delete-todo">X</div>
+                <div className="delete-todo" onClick={handleDelete}>X</div>
             </span>
         </li>
     );

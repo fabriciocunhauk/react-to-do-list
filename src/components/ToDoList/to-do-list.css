@@ -30,6 +30,7 @@ form input {
     background: #25273C;
     color: white;
     font-size: 2rem;
+    text-indent: 20px;
 }
 
 .to-dos {

@@ -3,18 +3,24 @@ import ToDo from '../ToDo/ToDo';
 
 import './to-do-list.css';
 
-function ToDoList() {
+const ToDoList = () => {
     const [inputContent, setInputContent] = useState("");
     const [toDoContent, setToDoContent] = useState([]);
 
-    function handleChange(event) {
+    const handleChange = (event) => {
         setInputContent(event.target.value);
     }
 
-    function handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault();
         setToDoContent([...toDoContent, { toDoText: inputContent }]);
         setInputContent("");
+    }
+
+    const handleDelete = (ind) => {
+        const notesArray = [...toDoContent];
+        notesArray.splice(ind, 1);
+        setToDoContent(notesArray);
     }
 
     return (
@@ -36,7 +42,13 @@ function ToDoList() {
             <div className="to-dos">
                 <ul className="to-dos-lists">
                     {toDoContent.map((todo, index) => {
-                        return <ToDo key={index} toDoText={todo.toDoText} />
+                        return (
+                            <ToDo
+                                key={index}
+                                toDoText={todo.toDoText}
+                                handleDelete={() => handleDelete(index)}
+                            />
+                        );
                     })}
                 </ul>
                 <div className="to-do-options">
