@@ -38,8 +38,9 @@ form input {
 
 .to-dos>ul>li {
     width: 100%;
-    height: 60px;
+    min-height: 60px;
     background: #25273C;
+    border: 1px solid #494C6B;
     color: white;
     font-size: 2rem;
 }
@@ -61,8 +62,8 @@ form input {
     color: #494C6B;
 }
 
-.to-do-options>p:hover {
-    color: aqua;
+.to-do-options>.clear-completed:hover {
+    color: white;
     cursor: pointer;
 }
 
@@ -75,6 +76,10 @@ form input {
 }
 
 .to-do-options>ul>li:hover {
-    color: aqua;
+    color: white;
     cursor: pointer;
+}
+
+.active-filter {
+    color: aqua;
 }

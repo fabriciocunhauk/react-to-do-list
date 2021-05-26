@@ -1,0 +1,25 @@
+.todo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.completed-todo {
+    width: 30px;
+    height: 30px;
+    margin-left: 20px;
+    border-radius: 50%;
+    border: 2px solid #494C6B;
+    cursor: pointer;
+}
+
+.to-do-text {
+    width: 400px;
+    word-wrap: break-word;
+}
+
+.delete-todo {
+    margin-right: 20px;
+    color: #494C6B;
+    cursor: pointer;
+}

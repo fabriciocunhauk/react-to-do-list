@@ -46,7 +46,7 @@ function ToDoList() {
                         <li>Active</li>
                         <li>Completed</li>
                     </ul>
-                    <p>Clear Completed</p>
+                    <p className="clear-completed">Clear Completed</p>
                 </div>
             </div>
         </div>
