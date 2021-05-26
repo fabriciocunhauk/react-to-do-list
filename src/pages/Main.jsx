@@ -1,5 +1,5 @@
 import React from 'react';
-import ToDoList from '../components/ToDoList.jsx';
+import ToDoList from '../components/ToDoList/ToDoList';
 import darkBackground from '../assets/images/bg-desktop-dark.jpg';
 import './main.css';
 

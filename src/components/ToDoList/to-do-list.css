@@ -4,9 +4,7 @@
     align-items: center;
     justify-content: space-around;
     width: 600px;
-    margin-top: 90px;
-
-    position: absolute;
+    margin-top: -210px;
 }
 
 form {
@@ -63,10 +61,20 @@ form input {
     color: #494C6B;
 }
 
+.to-do-options>p:hover {
+    color: aqua;
+    cursor: pointer;
+}
+
 .to-do-options>ul {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
     width: 200px;
     height: 50px;
+}
+
+.to-do-options>ul>li:hover {
+    color: aqua;
+    cursor: pointer;
 }

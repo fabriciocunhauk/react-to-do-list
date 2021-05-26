@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ToDo from '../ToDo/ToDo';
 
 import './to-do-list.css';
 
@@ -35,11 +36,11 @@ function ToDoList() {
             <div className="to-dos">
                 <ul className="to-dos-lists">
                     {toDoContent.map((todo, index) => {
-                        return <li key={index}>{todo.toDoText}</li>
+                        return <ToDo key={index} toDoText={todo.toDoText} />
                     })}
                 </ul>
                 <div className="to-do-options">
-                    <p>0 items left</p>
+                    <p>{toDoContent.length} Items left</p>
                     <ul>
                         <li>All</li>
                         <li>Active</li>
