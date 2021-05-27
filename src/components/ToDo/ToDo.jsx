@@ -1,4 +1,5 @@
 import React from 'react';
+import closeSvg from '../../assets/images/icon-cross.svg';
 
 import './to-do.css';
 
@@ -12,7 +13,7 @@ const ToDo = ({ toDoText, handleDelete }) => {
                 {toDoText.toUpperCase()}
             </span>
             <span>
-                <div className="delete-todo" onClick={handleDelete}>X</div>
+                <img className="delete-todo" onClick={handleDelete} src={closeSvg} alt="delete todo" />
             </span>
         </li>
     );
