@@ -13,6 +13,18 @@
     cursor: pointer;
 }
 
+.completed-todo-active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom right, #57ddff, #c058f3);
+}
+
+.completed-todo-active>img {
+    width: 20px;
+    height: 20px;
+}
+
 .to-do-text {
     width: 400px;
     word-wrap: break-word;

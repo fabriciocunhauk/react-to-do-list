@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ToDo from '../ToDo/ToDo';
+import checkedIcon from '../../assets/images/icon-check.svg';
 
 import './to-do-list.css';
 
@@ -17,10 +18,26 @@ const ToDoList = () => {
         setInputContent("");
     }
 
-    const handleDelete = (ind) => {
+    const handleDelete = (index) => {
         const notesArray = [...toDoContent];
-        notesArray.splice(ind, 1);
+        notesArray.splice(index, 1);
         setToDoContent(notesArray);
+    }
+
+    const handleCompleted = (index) => {
+        const notesArray = [...toDoContent];
+        notesArray.filter((note, ind) => {
+            if (ind === index) {
+                if (note.active === "completed-todo-active") {
+                    note.active = "";
+                    note.image = "";
+                } else {
+                    note.active = "completed-todo-active";
+                    note.image = checkedIcon;
+                }
+            }
+            return setToDoContent(notesArray);
+        });
     }
 
     return (
@@ -46,7 +63,10 @@ const ToDoList = () => {
                             <ToDo
                                 key={index}
                                 toDoText={todo.toDoText}
+                                toDoActive={todo.active}
+                                toDoActiveImage={todo.image}
                                 handleDelete={() => handleDelete(index)}
+                                handleCompleted={() => handleCompleted(index)}
                             />
                         );
                     })}
