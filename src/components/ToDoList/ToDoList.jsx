@@ -3,8 +3,10 @@ import ToDo from '../ToDo/ToDo';
 import checkedIcon from '../../assets/images/icon-check.svg';
 
 import './to-do-list.css';
+import ToDoFilter from '../ToDoFilter/ToDoFilter';
 
 const ToDoList = () => {
+    const filterOptions = ["All", "Active", "Completed"];
     const [inputContent, setInputContent] = useState("");
     const [toDoContent, setToDoContent] = useState([]);
 
@@ -26,8 +28,8 @@ const ToDoList = () => {
 
     const handleCompleted = (index) => {
         const notesArray = [...toDoContent];
-        notesArray.filter((note, ind) => {
-            if (ind === index) {
+        notesArray.filter((note, ToDoindex) => {
+            if (ToDoindex === index) {
                 if (note.active === "completed-todo-active") {
                     note.active = "";
                     note.image = "";
@@ -38,6 +40,31 @@ const ToDoList = () => {
             }
             return setToDoContent(notesArray);
         });
+    }
+
+
+    const handleCompletedToDos = (index) => {
+
+        if (index === 0) {
+            setToDoContent(toDoContent);
+        }
+
+        if (index === 1) {
+            toDoContent.filter(note => {
+                if (note.active !== "completed-todo-active") {
+                    console.log(note);
+                }
+            });
+        }
+
+        if (index === 2) {
+            toDoContent.filter(note => {
+                if (note.active === "completed-todo-active") {
+                    console.log(note);
+                }
+            });
+        }
+
     }
 
     return (
@@ -74,9 +101,15 @@ const ToDoList = () => {
                 <div className="to-do-options">
                     <p>{toDoContent.length} Items left</p>
                     <ul>
-                        <li>All</li>
-                        <li>Active</li>
-                        <li>Completed</li>
+                        {filterOptions.map((optionText, index) => {
+                            return (
+                                <ToDoFilter
+                                    key={index}
+                                    liText={optionText}
+                                    handleCompletedToDos={() => handleCompletedToDos(index)}
+                                />
+                            )
+                        })}
                     </ul>
                     <p className="clear-completed">Clear Completed</p>
                 </div>

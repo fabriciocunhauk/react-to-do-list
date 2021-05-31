@@ -1,0 +1,8 @@
+li:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.li-active {
+    color: #5378B0;
+}
