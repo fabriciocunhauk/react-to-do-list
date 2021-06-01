@@ -9,6 +9,7 @@ const ToDoList = () => {
     const filterOptions = ["All", "Active", "Completed"];
     const [inputContent, setInputContent] = useState("");
     const [toDoContent, setToDoContent] = useState([]);
+    const [Content, setContent] = useState([]);
 
     const handleChange = (event) => {
         setInputContent(event.target.value);
@@ -18,6 +19,7 @@ const ToDoList = () => {
         event.preventDefault();
         setToDoContent([...toDoContent, { toDoText: inputContent }]);
         setInputContent("");
+        handleCompletedToDos();
     }
 
     const handleDelete = (index) => {
@@ -44,28 +46,26 @@ const ToDoList = () => {
 
 
     const handleCompletedToDos = (index) => {
-
-        if (index === 0) {
-            setToDoContent(toDoContent);
-        }
+        let notesArray = toDoContent;
+        if (index === null) return notesArray;
 
         if (index === 1) {
-            toDoContent.filter(note => {
-                if (note.active !== "completed-todo-active") {
-                    console.log(note);
-                }
+            notesArray = notesArray.filter(note => {
+
+                return note.active !== "completed-todo-active";
             });
         }
 
         if (index === 2) {
-            toDoContent.filter(note => {
-                if (note.active === "completed-todo-active") {
-                    console.log(note);
-                }
+            notesArray = notesArray.filter(note => {
+                return note.active === "completed-todo-active";
             });
         }
 
+        console.log(notesArray);
+        return setContent(notesArray);
     }
+
 
     return (
         <div className="to-do-container">
@@ -85,7 +85,7 @@ const ToDoList = () => {
 
             <div className="to-dos">
                 <ul className="to-dos-lists">
-                    {toDoContent.map((todo, index) => {
+                    {Content.map((todo, index) => {
                         return (
                             <ToDo
                                 key={index}
