@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ToDo from '../ToDo/ToDo';
 import checkedIcon from '../../assets/images/icon-check.svg';
 
@@ -19,19 +19,18 @@ const ToDoList = () => {
         event.preventDefault();
         setToDoContent([...toDoContent, { toDoText: inputContent }]);
         setInputContent("");
-        handleCompletedToDos();
     }
 
-    const handleDelete = (index) => {
+    const handleDelete = (ToDoIndex) => {
         const notesArray = [...toDoContent];
-        notesArray.splice(index, 1);
+        notesArray.splice(ToDoIndex, 1);
         setToDoContent(notesArray);
     }
 
-    const handleCompleted = (index) => {
-        const notesArray = [...toDoContent];
-        notesArray.filter((note, ToDoindex) => {
-            if (ToDoindex === index) {
+    const handleCompleted = (ToDoIndex) => {
+        let notesArray = [...toDoContent];
+        notesArray = notesArray.filter((note, noteIndex) => {
+            if (noteIndex === ToDoIndex) {
                 if (note.active === "completed-todo-active") {
                     note.active = "";
                     note.image = "";
@@ -40,23 +39,21 @@ const ToDoList = () => {
                     note.image = checkedIcon;
                 }
             }
-            return setToDoContent(notesArray);
+            return setContent(notesArray);
         });
     }
 
+    const handleCompletedToDos = (ToDoFilterIndex) => {
+        let notesArray = [...toDoContent];
+        if (ToDoFilterIndex === null) return notesArray;
 
-    const handleCompletedToDos = (index) => {
-        let notesArray = toDoContent;
-        if (index === null) return notesArray;
-
-        if (index === 1) {
+        if (ToDoFilterIndex === 1) {
             notesArray = notesArray.filter(note => {
-
                 return note.active !== "completed-todo-active";
             });
         }
 
-        if (index === 2) {
+        if (ToDoFilterIndex === 2) {
             notesArray = notesArray.filter(note => {
                 return note.active === "completed-todo-active";
             });
@@ -66,6 +63,9 @@ const ToDoList = () => {
         return setContent(notesArray);
     }
 
+    useEffect(() => {
+        handleCompletedToDos();
+    }, [toDoContent]);
 
     return (
         <div className="to-do-container">
@@ -85,15 +85,15 @@ const ToDoList = () => {
 
             <div className="to-dos">
                 <ul className="to-dos-lists">
-                    {Content.map((todo, index) => {
+                    {Content.map((todo, ToDoIndex) => {
                         return (
                             <ToDo
-                                key={index}
+                                key={ToDoIndex}
                                 toDoText={todo.toDoText}
                                 toDoActive={todo.active}
                                 toDoActiveImage={todo.image}
-                                handleDelete={() => handleDelete(index)}
-                                handleCompleted={() => handleCompleted(index)}
+                                handleDelete={() => handleDelete(ToDoIndex)}
+                                handleCompleted={() => handleCompleted(ToDoIndex)}
                             />
                         );
                     })}
@@ -101,12 +101,12 @@ const ToDoList = () => {
                 <div className="to-do-options">
                     <p>{toDoContent.length} Items left</p>
                     <ul>
-                        {filterOptions.map((optionText, index) => {
+                        {filterOptions.map((optionText, ToDoFilterIndex) => {
                             return (
                                 <ToDoFilter
-                                    key={index}
+                                    key={ToDoFilterIndex}
                                     liText={optionText}
-                                    handleCompletedToDos={() => handleCompletedToDos(index)}
+                                    handleCompletedToDos={() => handleCompletedToDos(ToDoFilterIndex)}
                                 />
                             )
                         })}
