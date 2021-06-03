@@ -22,13 +22,13 @@ const ToDoList = () => {
     }
 
     const handleDelete = (ToDoIndex) => {
-        const notesArray = [...toDoContent];
+        const notesArray = [...Content];
         notesArray.splice(ToDoIndex, 1);
         setToDoContent(notesArray);
     }
 
     const handleCompleted = (ToDoIndex) => {
-        let notesArray = [...toDoContent];
+        let notesArray = [...Content];
         notesArray = notesArray.filter((note, noteIndex) => {
             if (noteIndex === ToDoIndex) {
                 if (note.active === "completed-todo-active") {
