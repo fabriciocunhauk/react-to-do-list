@@ -3,13 +3,12 @@ import ToDo from '../ToDo/ToDo';
 import checkedIcon from '../../assets/images/icon-check.svg';
 
 import './to-do-list.css';
-import ToDoFilter from '../ToDoFilter/ToDoFilter';
 
 const ToDoList = () => {
-    const filterOptions = ["All", "Active", "Completed"];
     const [inputContent, setInputContent] = useState("");
     const [toDoContent, setToDoContent] = useState([]);
     const [Content, setContent] = useState([]);
+    const [filterActiveClass, setFilterActiveClass] = useState(0);
 
     const handleChange = (event) => {
         setInputContent(event.target.value);
@@ -44,16 +43,21 @@ const ToDoList = () => {
     }
 
     const handleCompletedToDos = (ToDoFilterIndex) => {
-        let notesArray = [...toDoContent];
+        let notesArray = toDoContent;
+
         if (ToDoFilterIndex === null) return notesArray;
 
+        if (ToDoFilterIndex === 0) setFilterActiveClass(ToDoFilterIndex);
+
         if (ToDoFilterIndex === 1) {
+            setFilterActiveClass(ToDoFilterIndex);
             notesArray = notesArray.filter(note => {
                 return note.active !== "completed-todo-active";
             });
         }
 
         if (ToDoFilterIndex === 2) {
+            setFilterActiveClass(ToDoFilterIndex);
             notesArray = notesArray.filter(note => {
                 return note.active === "completed-todo-active";
             });
@@ -101,15 +105,21 @@ const ToDoList = () => {
                 <div className="to-do-options">
                     <p>{toDoContent.length} Items left</p>
                     <ul>
-                        {filterOptions.map((optionText, ToDoFilterIndex) => {
-                            return (
-                                <ToDoFilter
-                                    key={ToDoFilterIndex}
-                                    liText={optionText}
-                                    handleCompletedToDos={() => handleCompletedToDos(ToDoFilterIndex)}
-                                />
-                            )
-                        })}
+                        <li
+                            className={filterActiveClass === 0 ? "filter-active" : ""}
+                            onClick={() => handleCompletedToDos(0)}>
+                            All
+                        </li>
+                        <li
+                            className={filterActiveClass === 1 ? "filter-active" : ""}
+                            onClick={() => handleCompletedToDos(1)}>
+                            Active
+                        </li>
+                        <li
+                            className={filterActiveClass === 2 ? "filter-active" : ""}
+                            onClick={() => handleCompletedToDos(2)}>
+                            Completed
+                        </li>
                     </ul>
                     <p className="clear-completed">Clear Completed</p>
                 </div>

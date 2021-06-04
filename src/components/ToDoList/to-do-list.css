@@ -76,6 +76,10 @@ form input {
     height: 50px;
 }
 
-.active-filter {
-    color: aqua;
+.to-do-options>ul>li {
+    cursor: pointer;
+}
+
+.filter-active {
+    color: #5381D7;
 }
