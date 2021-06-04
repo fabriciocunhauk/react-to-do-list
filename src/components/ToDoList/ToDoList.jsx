@@ -7,7 +7,7 @@ import './to-do-list.css';
 const ToDoList = () => {
     const [inputContent, setInputContent] = useState("");
     const [toDoContent, setToDoContent] = useState([]);
-    const [Content, setContent] = useState([]);
+    const [filteredContent, setFilteredContent] = useState([]);
     const [filterActiveClass, setFilterActiveClass] = useState(0);
 
     const handleChange = (event) => {
@@ -21,13 +21,13 @@ const ToDoList = () => {
     }
 
     const handleDelete = (ToDoIndex) => {
-        const notesArray = [...Content];
+        const notesArray = [...filteredContent];
         notesArray.splice(ToDoIndex, 1);
         setToDoContent(notesArray);
     }
 
     const handleCompleted = (ToDoIndex) => {
-        let notesArray = [...Content];
+        let notesArray = [...filteredContent];
         notesArray = notesArray.filter((note, noteIndex) => {
             if (noteIndex === ToDoIndex) {
                 if (note.active === "completed-todo-active") {
@@ -38,11 +38,11 @@ const ToDoList = () => {
                     note.image = checkedIcon;
                 }
             }
-            return setContent(notesArray);
+            return setFilteredContent(notesArray);
         });
     }
 
-    const handleCompletedToDos = (ToDoFilterIndex) => {
+    const handleFilters = (ToDoFilterIndex) => {
         let notesArray = toDoContent;
 
         if (ToDoFilterIndex === null) return notesArray;
@@ -63,12 +63,11 @@ const ToDoList = () => {
             });
         }
 
-        console.log(notesArray);
-        return setContent(notesArray);
+        return setFilteredContent(notesArray);
     }
 
     useEffect(() => {
-        handleCompletedToDos();
+        setFilteredContent(toDoContent);
     }, [toDoContent]);
 
     return (
@@ -89,7 +88,7 @@ const ToDoList = () => {
 
             <div className="to-dos">
                 <ul className="to-dos-lists">
-                    {Content.map((todo, ToDoIndex) => {
+                    {filteredContent.map((todo, ToDoIndex) => {
                         return (
                             <ToDo
                                 key={ToDoIndex}
@@ -107,17 +106,17 @@ const ToDoList = () => {
                     <ul>
                         <li
                             className={filterActiveClass === 0 ? "filter-active" : ""}
-                            onClick={() => handleCompletedToDos(0)}>
+                            onClick={() => handleFilters(0)}>
                             All
                         </li>
                         <li
                             className={filterActiveClass === 1 ? "filter-active" : ""}
-                            onClick={() => handleCompletedToDos(1)}>
+                            onClick={() => handleFilters(1)}>
                             Active
                         </li>
                         <li
                             className={filterActiveClass === 2 ? "filter-active" : ""}
-                            onClick={() => handleCompletedToDos(2)}>
+                            onClick={() => handleFilters(2)}>
                             Completed
                         </li>
                     </ul>
