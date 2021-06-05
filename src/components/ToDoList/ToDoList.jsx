@@ -70,12 +70,26 @@ const ToDoList = ({ themeIconChange }) => {
         setFilteredContent(toDoContent);
     }, [toDoContent]);
 
+    const handleClearCompleted = () => {
+        let notesArray = [...filteredContent];
+        notesArray.filter((note, toDoIndex) => {
+            if (note.active === "completed-todo-active") {
+                notesArray.splice(toDoIndex, 1)
+            }
+            return setToDoContent(notesArray);
+        })
+    }
+
     return (
         <div className="to-do-container">
 
             <form onSubmit={handleSubmit}>
                 <input
-                    className={themeIconChange ? "input-theme-light input-theme" : "input-theme"}
+                    className={
+                        themeIconChange
+                            ? "input-theme-light input-theme"
+                            : "input-theme"
+                    }
                     type="text"
                     name="to-do"
                     id="to-do"
@@ -85,7 +99,11 @@ const ToDoList = ({ themeIconChange }) => {
                 />
             </form>
 
-            <div className={themeIconChange ? "to-dos-light to-dos" : "to-dos"}>
+            <div className={
+                themeIconChange
+                    ? "to-dos-light to-dos"
+                    : "to-dos"}
+            >
                 <ul className="to-dos-lists">
                     {filteredContent.map((todo, ToDoIndex) => {
                         return (
@@ -100,7 +118,11 @@ const ToDoList = ({ themeIconChange }) => {
                         );
                     })}
                 </ul>
-                <div className={themeIconChange ? "to-do-options-light to-do-options" : "to-do-options"}>
+                <div className={
+                    themeIconChange
+                        ? "to-do-options-light to-do-options"
+                        : "to-do-options"}
+                >
                     <p>{toDoContent.length} Items left</p>
                     <ul>
                         <li
@@ -119,7 +141,15 @@ const ToDoList = ({ themeIconChange }) => {
                             Completed
                         </li>
                     </ul>
-                    <p className={themeIconChange ? "clear-completed-light" : "clear-completed"}>Clear Completed</p>
+                    <p className={
+                        themeIconChange
+                            ? "clear-completed-light"
+                            : "clear-completed"
+                    }
+                        onClick={handleClearCompleted}
+                    >
+                        Clear Completed
+                    </p>
                 </div>
             </div>
         </div>
