@@ -7,7 +7,32 @@
     background: #181824;
 }
 
+.main-container-light {
+    background: white;
+}
+
 .main-container>img {
     width: 100vw;
     height: 330px;
+}
+
+.to-do-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 600px;
+    position: absolute;
+    margin-top: 130px;
+
+}
+
+.to-do-header>h1 {
+    font-size: 3.5rem;
+    font-weight: bold;
+    letter-spacing: 20px;
+    color: white;
+}
+
+.to-do-header img {
+    cursor: pointer;
 }

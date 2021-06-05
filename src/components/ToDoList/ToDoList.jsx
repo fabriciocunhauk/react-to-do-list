@@ -4,7 +4,7 @@ import checkedIcon from '../../assets/images/icon-check.svg';
 
 import './to-do-list.css';
 
-const ToDoList = () => {
+const ToDoList = ({ themeIconChange }) => {
     const [inputContent, setInputContent] = useState("");
     const [toDoContent, setToDoContent] = useState([]);
     const [filteredContent, setFilteredContent] = useState([]);
@@ -72,21 +72,20 @@ const ToDoList = () => {
 
     return (
         <div className="to-do-container">
+
             <form onSubmit={handleSubmit}>
-                <label htmlFor="to-do">
-                    TODO
-                    <input
-                        type="text"
-                        name="to-do"
-                        id="to-do"
-                        value={inputContent}
-                        required
-                        onChange={handleChange}
-                    />
-                </label>
+                <input
+                    className={themeIconChange ? "input-theme-light input-theme" : "input-theme"}
+                    type="text"
+                    name="to-do"
+                    id="to-do"
+                    value={inputContent}
+                    required
+                    onChange={handleChange}
+                />
             </form>
 
-            <div className="to-dos">
+            <div className={themeIconChange ? "to-dos-light to-dos" : "to-dos"}>
                 <ul className="to-dos-lists">
                     {filteredContent.map((todo, ToDoIndex) => {
                         return (
@@ -101,7 +100,7 @@ const ToDoList = () => {
                         );
                     })}
                 </ul>
-                <div className="to-do-options">
+                <div className={themeIconChange ? "to-do-options-light to-do-options" : "to-do-options"}>
                     <p>{toDoContent.length} Items left</p>
                     <ul>
                         <li
@@ -120,7 +119,7 @@ const ToDoList = () => {
                             Completed
                         </li>
                     </ul>
-                    <p className="clear-completed">Clear Completed</p>
+                    <p className={themeIconChange ? "clear-completed-light" : "clear-completed"}>Clear Completed</p>
                 </div>
             </div>
         </div>
