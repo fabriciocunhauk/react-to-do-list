@@ -57,13 +57,18 @@ const ToDoList = ({ themeIconChange }) => {
         let notesArray = toDoContent;
         setFilterWhenChecked(ToDoFilterIndex);
 
-        if (ToDoFilterIndex === 0) setFilterActiveClass(ToDoFilterIndex);
+        if (ToDoFilterIndex === 0) {
+            setFilterActiveClass(ToDoFilterIndex);
+            setFilteredContent(notesArray);
+        }
 
         if (ToDoFilterIndex === 1) {
             setFilterActiveClass(ToDoFilterIndex);
             notesArray = notesArray.filter(note => {
                 return note.active !== "completed-todo-active";
             });
+
+            setFilteredContent(notesArray);
         }
 
         if (ToDoFilterIndex === 2) {
@@ -71,9 +76,8 @@ const ToDoList = ({ themeIconChange }) => {
             notesArray = notesArray.filter(note => {
                 return note.active === "completed-todo-active";
             });
+            setFilteredContent(notesArray);
         }
-
-        return setFilteredContent(notesArray);
     }
 
     useEffect(() => {
