@@ -9,6 +9,7 @@ const ToDoList = ({ themeIconChange }) => {
     const [toDoContent, setToDoContent] = useState([]);
     const [filteredContent, setFilteredContent] = useState([]);
     const [filterActiveClass, setFilterActiveClass] = useState(0);
+    const [filterWhenChecked, setFilterWhenChecked] = useState(null);
 
     const handleChange = (event) => {
         setInputContent(event.target.value);
@@ -28,6 +29,7 @@ const ToDoList = ({ themeIconChange }) => {
 
     const handleCompleted = (ToDoIndex) => {
         let notesArray = [...filteredContent];
+
         notesArray = notesArray.filter((note, noteIndex) => {
             if (noteIndex === ToDoIndex) {
                 if (note.active === "completed-todo-active") {
@@ -38,14 +40,22 @@ const ToDoList = ({ themeIconChange }) => {
                     note.image = checkedIcon;
                 }
             }
+
+            if (filterWhenChecked === 2) {
+                return handleFilters(2);
+            }
+
+            if (filterWhenChecked === 1) {
+                return handleFilters(1);
+            }
+
             return setFilteredContent(notesArray);
         });
     }
 
     const handleFilters = (ToDoFilterIndex) => {
         let notesArray = toDoContent;
-
-        if (ToDoFilterIndex === null) return notesArray;
+        setFilterWhenChecked(ToDoFilterIndex);
 
         if (ToDoFilterIndex === 0) setFilterActiveClass(ToDoFilterIndex);
 
