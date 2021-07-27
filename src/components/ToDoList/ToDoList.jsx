@@ -17,14 +17,28 @@ const ToDoList = ({ themeIconChange }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+        handleFilters(0);
         setToDoContent([...toDoContent, { toDoText: inputContent }]);
         setInputContent("");
     }
 
-    const handleDelete = (ToDoIndex) => {
-        const notesArray = [...filteredContent];
+    const handleDelete = (ToDoIndex, indexToDelete) => {
+        const notesArray = toDoContent;
+
+        if (filterWhenChecked === 1) {
+            notesArray.splice(indexToDelete, 1);
+            setFilteredContent([...notesArray]);
+            return handleFilters(1);
+        }
+
+        if (filterWhenChecked === 2) {
+            notesArray.splice(indexToDelete, 1);
+            setFilteredContent([...notesArray]);
+            return handleFilters(2);
+        }
+
         notesArray.splice(ToDoIndex, 1);
-        setToDoContent(notesArray);
+        setFilteredContent([...notesArray]);
     }
 
     const handleCompleted = (ToDoIndex) => {
@@ -41,12 +55,12 @@ const ToDoList = ({ themeIconChange }) => {
                 }
             }
 
-            if (filterWhenChecked === 2) {
-                return handleFilters(2);
-            }
-
             if (filterWhenChecked === 1) {
                 return handleFilters(1);
+            }
+
+            if (filterWhenChecked === 2) {
+                return handleFilters(2);
             }
 
             return setFilteredContent(notesArray);
@@ -64,7 +78,10 @@ const ToDoList = ({ themeIconChange }) => {
 
         if (ToDoFilterIndex === 1) {
             setFilterActiveClass(ToDoFilterIndex);
-            notesArray = notesArray.filter(note => {
+            notesArray = notesArray.filter((note, noteIndex) => {
+                if (note.active !== "completed-todo-active") {
+                    note.indexToDelete = noteIndex;
+                }
                 return note.active !== "completed-todo-active";
             });
 
@@ -73,7 +90,10 @@ const ToDoList = ({ themeIconChange }) => {
 
         if (ToDoFilterIndex === 2) {
             setFilterActiveClass(ToDoFilterIndex);
-            notesArray = notesArray.filter(note => {
+            notesArray = notesArray.filter((note, noteIndex) => {
+                if (note.active === "completed-todo-active") {
+                    note.indexToDelete = noteIndex;
+                }
                 return note.active === "completed-todo-active";
             });
             setFilteredContent(notesArray);
@@ -85,13 +105,16 @@ const ToDoList = ({ themeIconChange }) => {
     }, [toDoContent]);
 
     const handleClearCompleted = () => {
-        let notesArray = [...filteredContent];
-        notesArray.filter((note, toDoIndex) => {
+        let notesArray = toDoContent;
+
+        notesArray.forEach((note, toDoIndex) => {
             if (note.active === "completed-todo-active") {
+                console.log(toDoIndex);
                 notesArray.splice(toDoIndex, 1)
             }
-            return setToDoContent(notesArray);
         })
+
+        return setFilteredContent([...notesArray]);
     }
 
     return (
@@ -126,7 +149,7 @@ const ToDoList = ({ themeIconChange }) => {
                                 toDoText={todo.toDoText}
                                 toDoActive={todo.active}
                                 toDoActiveImage={todo.image}
-                                handleDelete={() => handleDelete(ToDoIndex)}
+                                handleDelete={() => handleDelete(ToDoIndex, todo.indexToDelete)}
                                 handleCompleted={() => handleCompleted(ToDoIndex)}
                             />
                         );
