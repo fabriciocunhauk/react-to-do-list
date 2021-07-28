@@ -107,12 +107,13 @@ const ToDoList = ({ themeIconChange }) => {
     const handleClearCompleted = () => {
         let notesArray = toDoContent;
 
-        notesArray.forEach((note, toDoIndex) => {
-            if (note.active === "completed-todo-active") {
-                console.log(toDoIndex);
-                notesArray.splice(toDoIndex, 1)
+        for (var i = 0; i < notesArray.length; i++) {
+            if (notesArray[i].active === "completed-todo-active") {
+                notesArray.splice(i, 1)
+                handleFilters(0);
+                i--;
             }
-        })
+        }
 
         return setFilteredContent([...notesArray]);
     }
