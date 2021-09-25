@@ -6,8 +6,13 @@ import './to-do-list.css';
 
 const ToDoList = ({ themeIconChange }) => {
     const [inputContent, setInputContent] = useState("");
-    const [toDoContent, setToDoContent] = useState([]);
+
     const [filteredContent, setFilteredContent] = useState([]);
+    const [toDoContent, setToDoContent] = useState(() => {
+        const todo = localStorage.getItem('todo');
+        return todo ? JSON.parse(todo) : [];
+    });
+
     const [filterActiveClass, setFilterActiveClass] = useState(0);
     const [filterWhenChecked, setFilterWhenChecked] = useState(null);
 
@@ -17,28 +22,18 @@ const ToDoList = ({ themeIconChange }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
+
         handleFilters(0);
         setToDoContent([...toDoContent, { toDoText: inputContent }]);
+
         setInputContent("");
     }
 
-    const handleDelete = (ToDoIndex, indexToDelete) => {
+    const handleDelete = (ToDoIndex) => {
         const notesArray = toDoContent;
 
-        if (filterWhenChecked === 1) {
-            notesArray.splice(indexToDelete, 1);
-            setFilteredContent([...notesArray]);
-            return handleFilters(1);
-        }
-
-        if (filterWhenChecked === 2) {
-            notesArray.splice(indexToDelete, 1);
-            setFilteredContent([...notesArray]);
-            return handleFilters(2);
-        }
-
         notesArray.splice(ToDoIndex, 1);
-        setFilteredContent([...notesArray]);
+        setToDoContent([...notesArray]);
     }
 
     const handleCompleted = (ToDoIndex) => {
@@ -63,7 +58,7 @@ const ToDoList = ({ themeIconChange }) => {
                 return handleFilters(2);
             }
 
-            return setFilteredContent(notesArray);
+            return setToDoContent(notesArray);
         });
     }
 
@@ -73,35 +68,30 @@ const ToDoList = ({ themeIconChange }) => {
 
         if (ToDoFilterIndex === 0) {
             setFilterActiveClass(ToDoFilterIndex);
-            setFilteredContent(notesArray);
         }
 
         if (ToDoFilterIndex === 1) {
             setFilterActiveClass(ToDoFilterIndex);
-            notesArray = notesArray.filter((note, noteIndex) => {
-                if (note.active !== "completed-todo-active") {
-                    note.indexToDelete = noteIndex;
-                }
+            notesArray = notesArray.filter((note) => {
                 return note.active !== "completed-todo-active";
             });
 
-            setFilteredContent(notesArray);
         }
 
         if (ToDoFilterIndex === 2) {
             setFilterActiveClass(ToDoFilterIndex);
-            notesArray = notesArray.filter((note, noteIndex) => {
-                if (note.active === "completed-todo-active") {
-                    note.indexToDelete = noteIndex;
-                }
+            notesArray = notesArray.filter((note) => {
                 return note.active === "completed-todo-active";
             });
-            setFilteredContent(notesArray);
         }
+
+        return setFilteredContent(notesArray);
     }
 
     useEffect(() => {
-        setFilteredContent(toDoContent);
+        localStorage.setItem('todo', JSON.stringify(toDoContent));
+
+        setFilteredContent(toDoContent)
     }, [toDoContent]);
 
     const handleClearCompleted = () => {
@@ -115,7 +105,7 @@ const ToDoList = ({ themeIconChange }) => {
             }
         }
 
-        return setFilteredContent([...notesArray]);
+        return setToDoContent([...notesArray]);
     }
 
     return (
