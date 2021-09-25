@@ -12,7 +12,7 @@ function Main() {
     const [themeIcon, setThemeIcon] = useState(moonIcon);
     const [themeBg, setThemeBg] = useState(darkBackground);
 
-    const handleTheme = () => {
+    function handleTheme() {
         if (themeIconChange) {
             setThemeIcon(moonIcon);
             setThemeBg(darkBackground);

@@ -4,7 +4,7 @@ import checkedIcon from '../../assets/images/icon-check.svg';
 
 import './to-do-list.css';
 
-const ToDoList = ({ themeIconChange }) => {
+function ToDoList({ themeIconChange }) {
     const [inputContent, setInputContent] = useState("");
 
     const [filteredContent, setFilteredContent] = useState([]);
@@ -16,11 +16,11 @@ const ToDoList = ({ themeIconChange }) => {
     const [filterActiveClass, setFilterActiveClass] = useState(0);
     const [filterWhenChecked, setFilterWhenChecked] = useState(null);
 
-    const handleChange = (event) => {
+    function handleChange(event) {
         setInputContent(event.target.value);
     }
 
-    const handleSubmit = (event) => {
+    function handleSubmit(event) {
         event.preventDefault();
 
         handleFilters(0);
@@ -29,14 +29,14 @@ const ToDoList = ({ themeIconChange }) => {
         setInputContent("");
     }
 
-    const handleDelete = (ToDoIndex) => {
+    function handleDelete(ToDoIndex) {
         const notesArray = toDoContent;
 
         notesArray.splice(ToDoIndex, 1);
         setToDoContent([...notesArray]);
     }
 
-    const handleCompleted = (ToDoIndex) => {
+    function handleCompleted(ToDoIndex) {
         let notesArray = [...filteredContent];
 
         notesArray = notesArray.filter((note, noteIndex) => {
@@ -62,7 +62,7 @@ const ToDoList = ({ themeIconChange }) => {
         });
     }
 
-    const handleFilters = (ToDoFilterIndex) => {
+    function handleFilters(ToDoFilterIndex) {
         let notesArray = toDoContent;
         setFilterWhenChecked(ToDoFilterIndex);
 
@@ -94,7 +94,7 @@ const ToDoList = ({ themeIconChange }) => {
         setFilteredContent(toDoContent)
     }, [toDoContent]);
 
-    const handleClearCompleted = () => {
+    function handleClearCompleted() {
         let notesArray = toDoContent;
 
         for (var i = 0; i < notesArray.length; i++) {
