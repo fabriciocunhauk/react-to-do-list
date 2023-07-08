@@ -1,4 +1,5 @@
 import React from 'react'
+import './todos-form.css'
 
 function ToDoForm({handleSubmit, themeIconChange, inputContent, handleChange}) {
   return (

@@ -1,0 +1,23 @@
+form {
+  width: 100%;
+  height: 70px;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.input-theme {
+  width: 100%;
+  height: 60px;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  background: #25273c;
+  color: white;
+  font-size: 2rem;
+  text-indent: 20px;
+}
+
+.input-theme-light {
+  background: white;
+  color: #494c6b;
+}

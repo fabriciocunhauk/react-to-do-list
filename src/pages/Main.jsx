@@ -8,6 +8,7 @@ import sunIcon from '../assets/images/icon-sun.svg';
 import './main.css';
 import ToDoForm from '../components/ToDoForm/ToDoForm';
 import ToDosList from '../components/ToDosList/ToDosList';
+import ToDosFilter from '../components/ToDosFilter/ToDosFilter';
 
 function Main() {
     const [inputContent, setInputContent] = useState("");
@@ -162,39 +163,13 @@ function Main() {
                             );
                         })}
                     </ul>
-                    <div className={
-                        themeIconChange
-                            ? "to-do-options-light to-do-options"
-                            : "to-do-options"}
-                    >
-                        <p>{toDoContent.length} Items left</p>
-                        <ul>
-                            <li
-                                className={filterActiveClass === 0 ? "filter-active" : ""}
-                                onClick={() => handleFilters(0)}>
-                                All
-                            </li>
-                            <li
-                                className={filterActiveClass === 1 ? "filter-active" : ""}
-                                onClick={() => handleFilters(1)}>
-                                Active
-                            </li>
-                            <li
-                                className={filterActiveClass === 2 ? "filter-active" : ""}
-                                onClick={() => handleFilters(2)}>
-                                Completed
-                            </li>
-                        </ul>
-                        <p className={
-                            themeIconChange
-                                ? "clear-completed-light"
-                                : "clear-completed"
-                        }
-                            onClick={handleClearCompleted}
-                        >
-                            Clear Completed
-                        </p>
-                    </div>
+                    <ToDosFilter 
+                        themeIconChange={themeIconChange}
+                        toDoContent={toDoContent}
+                        filterActiveClass={filterActiveClass}
+                        handleFilters={handleFilters}
+                        handleClearCompleted={handleClearCompleted}
+                    />
                 </div>
             </div>
         </div>

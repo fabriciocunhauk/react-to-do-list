@@ -1,0 +1,16 @@
+.to-do-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 70px;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  background: #25273c;
+  color: #494c6b;
+}
+
+.to-do-options > .clear-completed:hover {
+  color: white;
+  cursor: pointer;
+}
