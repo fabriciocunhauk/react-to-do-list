@@ -11,8 +11,6 @@ import ToDosList from '../components/ToDosList/ToDosList';
 import ToDosFilter from '../components/ToDosFilter/ToDosFilter';
 
 function Main() {
-    const [inputContent, setInputContent] = useState("");
-
     const [filteredContent, setFilteredContent] = useState([]);
     const [toDoContent, setToDoContent] = useState(() => {
         const todo = localStorage.getItem('todo');
@@ -36,19 +34,6 @@ function Main() {
             setThemeBg(lightBackground);
             setThemeIconChange(true);
         }
-    }
-
-    function handleChange(event) {
-        setInputContent(event.target.value);
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault();
-
-        handleFilters(0);
-        setToDoContent([...toDoContent, { toDoText: inputContent }]);
-
-        setInputContent("");
     }
 
     function handleDelete(ToDoIndex) {
@@ -111,8 +96,6 @@ function Main() {
     }
 
     useEffect(() => {
-        localStorage.setItem('todo', JSON.stringify(toDoContent));
-
         setFilteredContent(toDoContent)
     }, [toDoContent]);
 
@@ -139,10 +122,10 @@ function Main() {
             </div>
             <div className="to-do-container">
                <ToDoForm
-                    handleSubmit={handleSubmit}
                     themeIconChange={themeIconChange} 
-                    inputContent={inputContent} 
-                    handleChange={handleChange}
+                    handleFilters={handleFilters}
+                    setToDoContent={setToDoContent}
+                    toDoContent={toDoContent}
                />
                 <div className={
                     themeIconChange

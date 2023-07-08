@@ -3,11 +3,29 @@
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
+  min-width: 600px;
   height: 70px;
   margin-bottom: 20px;
   font-size: 1.2rem;
   background: #25273c;
   color: #494c6b;
+  cursor: pointer;
+}
+
+@media only screen and (max-width: 425px) {
+  .to-do-options {
+    font-size: 0.8rem;
+    justify-content: space-around;
+    min-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .to-do-options {
+    font-size: 0.7rem;
+    justify-content: space-around;
+    min-width: 100%;
+  }
 }
 
 .to-do-options > .clear-completed:hover {

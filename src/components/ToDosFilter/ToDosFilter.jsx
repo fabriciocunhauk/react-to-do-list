@@ -5,12 +5,13 @@ function ToDosFilter({themeIconChange, toDoContent, filterActiveClass,
 handleFilters, handleClearCompleted}) {
   return (
     <div className={
-                        themeIconChange
-                            ? "to-do-options-light to-do-options"
-                            : "to-do-options"}
+                        themeIconChange && "to-do-options-light"}
                     >
-                        <p>{toDoContent.length} Items left</p>
-                        <ul>
+                        
+                        <ul className=" to-do-options">
+                            <li>
+                               <p>{toDoContent.length} Items left</p>
+                            </li>
                             <li
                                 className={filterActiveClass === 0 ? "filter-active" : ""}
                                 onClick={() => handleFilters(0)}>
@@ -26,16 +27,18 @@ handleFilters, handleClearCompleted}) {
                                 onClick={() => handleFilters(2)}>
                                 Completed
                             </li>
+                            <li>
+                                <p className={
+                                    themeIconChange
+                                        ? "clear-completed-light"
+                                        : "clear-completed"
+                                }
+                                    onClick={handleClearCompleted}
+                                >
+                                    Clear Completed
+                                </p>
+                            </li>
                         </ul>
-                        <p className={
-                            themeIconChange
-                                ? "clear-completed-light"
-                                : "clear-completed"
-                        }
-                            onClick={handleClearCompleted}
-                        >
-                            Clear Completed
-                        </p>
                     </div>
   )
 }

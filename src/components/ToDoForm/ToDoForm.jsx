@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './todos-form.css'
 
-function ToDoForm({handleSubmit, themeIconChange, inputContent, handleChange}) {
+function ToDoForm({ handleFilters, setToDoContent, toDoContent, themeIconChange}) {
+    const [inputContent, setInputContent] = useState("");
+
+      useEffect(() => {
+        localStorage.setItem('todo', JSON.stringify(toDoContent));
+    }, [toDoContent]);
+
+     function handleSubmit(event) {
+        event.preventDefault();
+
+        setToDoContent([...toDoContent, { toDoText: inputContent }]);
+        handleFilters(0);
+        setInputContent("");
+    }
+
   return (
      <form onSubmit={handleSubmit}>
                     <input
@@ -15,7 +29,7 @@ function ToDoForm({handleSubmit, themeIconChange, inputContent, handleChange}) {
                         id="to-do"
                         value={inputContent}
                         required
-                        onChange={handleChange}
+                        onChange={(event) => setInputContent(event.target.value)}
                     />
                 </form>
   )
