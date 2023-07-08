@@ -1,139 +1,137 @@
 .main-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100vw;
-    min-height: 100vh;
-    background: #181824;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  min-height: 100vh;
+  background: #181824;
 }
 
 .main-container-light {
-    background: white;
+  background: white;
 }
 
-.main-container>img {
-    width: 100vw;
-    height: 330px;
+.main-container > img {
+  width: 100vw;
+  height: 330px;
 }
 
 .to-do-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 600px;
-    position: absolute;
-    margin-top: 130px;
-
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  margin-top: 130px;
 }
 
-.to-do-header>h1 {
-    font-size: 3.5rem;
-    font-weight: bold;
-    letter-spacing: 20px;
-    color: white;
+.to-do-header > h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  letter-spacing: 20px;
+  color: white;
 }
 
 .to-do-header img {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .to-do-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    width: 600px;
-    margin-top: -120px;
+  max-width: 100%;
+  padding: 0 16px 0 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: -120px;
 }
 
 form {
-    width: 100%;
-    height: 70px;
-    margin-bottom: 10px;
-    color: white;
+  width: 100%;
+  height: 70px;
+  margin-bottom: 10px;
+  color: white;
 }
 
 .input-theme {
-    width: 100%;
-    height: 60px;
-    outline: none;
-    border: none;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    background: #25273C;
-    color: white;
-    font-size: 2rem;
-    text-indent: 20px;
+  width: 100%;
+  height: 60px;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  background: #25273c;
+  color: white;
+  font-size: 2rem;
+  text-indent: 20px;
 }
 
 .input-theme-light {
-    background: white;
-    color: #494C6B;
+  background: white;
+  color: #494c6b;
 }
 
 .to-dos {
-    width: 100%;
+  width: 100%;
 }
 
-.to-dos>ul>li {
-    width: 100%;
-    min-height: 60px;
-    background: #25273C;
-    border: 1px solid #494C6B;
-    color: white;
-    font-size: 2rem;
+.to-dos > ul > li {
+  width: 100%;
+  min-height: 60px;
+  background: #25273c;
+  border: 1px solid #494c6b;
+  color: white;
+  font-size: 2rem;
 }
 
-.to-dos-light>ul>li {
-    background: white;
-    color: #494C6B;
+.to-dos-light > ul > li {
+  background: white;
+  color: #494c6b;
 }
 
 .to-do-lists {
-    width: 100%;
-    height: 60px;
-    background: #25273C;
+  width: 100%;
+  height: 60px;
+  background: #25273c;
 }
 
 .to-do-options {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-    height: 70px;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-    background: #25273C;
-    color: #494C6B;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 70px;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  background: #25273c;
+  color: #494c6b;
 }
 
-.to-do-options>.clear-completed:hover {
-    color: white;
-    cursor: pointer;
+.to-do-options > .clear-completed:hover {
+  color: white;
+  cursor: pointer;
 }
 
 .clear-completed-light:hover {
-    color: #5381D7;
-    cursor: pointer;
+  color: #5381d7;
+  cursor: pointer;
 }
 
 .to-do-options-light {
-    background: white;
-    box-shadow: 1px 1px 10px black;
+  background: white;
+  box-shadow: 1px 1px 10px black;
 }
 
-.to-do-options>ul {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 200px;
-    height: 50px;
+.to-do-options > ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 200px;
+  height: 50px;
 }
 
-.to-do-options>ul>li {
-    cursor: pointer;
+.to-do-options > ul > li {
+  cursor: pointer;
 }
 
 .filter-active {
-    color: #5381D7;
+  color: #5381d7;
 }

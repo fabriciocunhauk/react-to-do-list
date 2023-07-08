@@ -1,0 +1,38 @@
+.todo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.completed-todo {
+  width: 30px;
+  height: 30px;
+  margin-left: 20px;
+  border-radius: 50%;
+  border: 2px solid #494c6b;
+  cursor: pointer;
+}
+
+.completed-todo-active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom right, #57ddff, #c058f3);
+}
+
+.completed-todo-active > img {
+  width: 20px;
+  height: 20px;
+}
+
+.to-do-text {
+  width: 400px;
+  word-wrap: break-word;
+}
+
+.delete-todo {
+  width: 30px;
+  margin-right: 20px;
+  color: #494c6b;
+  cursor: pointer;
+}

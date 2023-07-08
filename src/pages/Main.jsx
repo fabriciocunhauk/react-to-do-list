@@ -4,9 +4,10 @@ import darkBackground from '../assets/images/bg-desktop-dark.jpg';
 import lightBackground from '../assets/images/bg-desktop-light.jpg';
 import moonIcon from '../assets/images/icon-moon.svg';
 import sunIcon from '../assets/images/icon-sun.svg';
-import ToDo from '../components/ToDo/ToDo';
 
 import './main.css';
+import ToDoForm from '../components/ToDoForm/ToDoForm';
+import ToDosList from '../components/ToDosList/ToDosList';
 
 function Main() {
     const [inputContent, setInputContent] = useState("");
@@ -136,23 +137,12 @@ function Main() {
                 <img src={themeIcon} alt="moon icon" onClick={handleTheme} />
             </div>
             <div className="to-do-container">
-
-                <form onSubmit={handleSubmit}>
-                    <input
-                        className={
-                            themeIconChange
-                                ? "input-theme-light input-theme"
-                                : "input-theme"
-                        }
-                        type="text"
-                        name="to-do"
-                        id="to-do"
-                        value={inputContent}
-                        required
-                        onChange={handleChange}
-                    />
-                </form>
-
+               <ToDoForm
+                    handleSubmit={handleSubmit}
+                    themeIconChange={themeIconChange} 
+                    inputContent={inputContent} 
+                    handleChange={handleChange}
+               />
                 <div className={
                     themeIconChange
                         ? "to-dos-light to-dos"
@@ -161,11 +151,11 @@ function Main() {
                     <ul className="to-dos-lists">
                         {filteredContent.map((todo, ToDoIndex) => {
                             return (
-                                <ToDo
+                                <ToDosList
                                     key={ToDoIndex}
-                                    toDoText={todo.toDoText}
-                                    toDoActive={todo.active}
-                                    toDoActiveImage={todo.image}
+                                    text={todo.toDoText}
+                                    isActive={todo.active}
+                                    isImageActive={todo.image}
                                     handleDelete={() => handleDelete(ToDoIndex, todo.indexToDelete)}
                                     handleCompleted={() => handleCompleted(ToDoIndex)}
                                 />

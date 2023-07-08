@@ -1,18 +1,18 @@
 import React from 'react';
 import closeSvg from '../../assets/images/icon-cross.svg';
 
-import './to-do.css';
+import './todos-list.css';
 
-const ToDo = ({ toDoText, handleDelete, handleCompleted, toDoActive, toDoActiveImage }) => {
+const ToDosList = ({ text, handleDelete, handleCompleted, isActive, isImageActive }) => {
     return (
         <li className="todo">
             <span>
-                <div className={`completed-todo ${toDoActive}`} onClick={handleCompleted}>
-                    <img src={toDoActiveImage} alt="" />
+                <div className={`completed-todo ${isActive}`} onClick={handleCompleted}>
+                    <img src={isImageActive} alt="" />
                 </div>
             </span>
             <span className="to-do-text">
-                {toDoText.toUpperCase()}
+                {text.toUpperCase()}
             </span>
             <span>
                 <img className="delete-todo" onClick={handleDelete} src={closeSvg} alt="delete todo" />
@@ -21,4 +21,4 @@ const ToDo = ({ toDoText, handleDelete, handleCompleted, toDoActive, toDoActiveI
     );
 }
 
-export default ToDo;
+export default ToDosList;
