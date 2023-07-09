@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import checkedIcon from '../assets/images/icon-check.svg';
 import darkBackground from '../assets/images/bg-desktop-dark.jpg';
 import lightBackground from '../assets/images/bg-desktop-light.jpg';
 import moonIcon from '../assets/images/icon-moon.svg';
@@ -11,15 +10,8 @@ import ToDosList from '../components/ToDosList/ToDosList';
 import ToDosFilter from '../components/ToDosFilter/ToDosFilter';
 
 function Main() {
-    const [filteredContent, setFilteredContent] = useState([]);
-    const [toDoContent, setToDoContent] = useState(() => {
-        const todo = localStorage.getItem('todo');
-        return todo ? JSON.parse(todo) : [];
-    });
-
-    const [filterActiveClass, setFilterActiveClass] = useState(0);
-    const [filterWhenChecked, setFilterWhenChecked] = useState(null);
-
+    const [toDoContent, setToDoContent] = useState([]);
+    const [toDoType, setToDoType] = useState("all")
     const [themeIconChange, setThemeIconChange] = useState(false);
     const [themeIcon, setThemeIcon] = useState(moonIcon);
     const [themeBg, setThemeBg] = useState(darkBackground);
@@ -36,82 +28,12 @@ function Main() {
         }
     }
 
-    function handleDelete(ToDoIndex) {
-        const notesArray = toDoContent;
-
-        notesArray.splice(ToDoIndex, 1);
-        setToDoContent([...notesArray]);
-    }
-
-    function handleCompleted(ToDoIndex) {
-        let notesArray = [...filteredContent];
-
-        notesArray = notesArray.filter((note, noteIndex) => {
-            if (noteIndex === ToDoIndex) {
-                if (note.active === "completed-todo-active") {
-                    note.active = "";
-                    note.image = "";
-                } else {
-                    note.active = "completed-todo-active";
-                    note.image = checkedIcon;
-                }
-            }
-
-            if (filterWhenChecked === 1) {
-                return handleFilters(1);
-            }
-
-            if (filterWhenChecked === 2) {
-                return handleFilters(2);
-            }
-
-            return setToDoContent(notesArray);
-        });
-    }
-
-    function handleFilters(ToDoFilterIndex) {
-        let notesArray = toDoContent;
-        setFilterWhenChecked(ToDoFilterIndex);
-
-        if (ToDoFilterIndex === 0) {
-            setFilterActiveClass(ToDoFilterIndex);
-        }
-
-        if (ToDoFilterIndex === 1) {
-            setFilterActiveClass(ToDoFilterIndex);
-            notesArray = notesArray.filter((note) => {
-                return note.active !== "completed-todo-active";
-            });
-
-        }
-
-        if (ToDoFilterIndex === 2) {
-            setFilterActiveClass(ToDoFilterIndex);
-            notesArray = notesArray.filter((note) => {
-                return note.active === "completed-todo-active";
-            });
-        }
-
-        return setFilteredContent(notesArray);
-    }
-
     useEffect(() => {
-        setFilteredContent(toDoContent)
-    }, [toDoContent]);
-
-    function handleClearCompleted() {
-        let notesArray = toDoContent;
-
-        for (var i = 0; i < notesArray.length; i++) {
-            if (notesArray[i].active === "completed-todo-active") {
-                notesArray.splice(i, 1)
-                handleFilters(0);
-                i--;
-            }
-        }
-
-        return setToDoContent([...notesArray]);
-    }
+        const getToDos = localStorage.getItem('todo');
+        const toDos = getToDos ? JSON.parse(getToDos) : [];
+        
+        setToDoContent(toDos);
+    }, []);
 
     return (
         <div className={themeIconChange ? "main-container-light main-container" : "main-container"}>
@@ -123,7 +45,6 @@ function Main() {
             <div className="to-do-container">
                <ToDoForm
                     themeIconChange={themeIconChange} 
-                    handleFilters={handleFilters}
                     setToDoContent={setToDoContent}
                     toDoContent={toDoContent}
                />
@@ -132,26 +53,15 @@ function Main() {
                         ? "to-dos-light to-dos"
                         : "to-dos"}
                 >
-                    <ul className="to-dos-lists">
-                        {filteredContent.map((todo, ToDoIndex) => {
-                            return (
-                                <ToDosList
-                                    key={ToDoIndex}
-                                    text={todo.toDoText}
-                                    isActive={todo.active}
-                                    isImageActive={todo.image}
-                                    handleDelete={() => handleDelete(ToDoIndex, todo.indexToDelete)}
-                                    handleCompleted={() => handleCompleted(ToDoIndex)}
-                                />
-                            );
-                        })}
-                    </ul>
+                    <ToDosList
+                        toDoContent={toDoContent} 
+                        toDoType={toDoType}
+                    />
                     <ToDosFilter 
                         themeIconChange={themeIconChange}
                         toDoContent={toDoContent}
-                        filterActiveClass={filterActiveClass}
-                        handleFilters={handleFilters}
-                        handleClearCompleted={handleClearCompleted}
+                        setToDoType={setToDoType}
+                        toDoType={toDoType}
                     />
                 </div>
             </div>

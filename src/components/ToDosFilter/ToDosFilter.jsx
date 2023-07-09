@@ -1,30 +1,28 @@
 import React from 'react'
 import './todos-filter.css';
 
-function ToDosFilter({themeIconChange, toDoContent, filterActiveClass,
-handleFilters, handleClearCompleted}) {
+function ToDosFilter({themeIconChange, toDoContent, setToDoType, toDoType}) {
   return (
     <div className={
-                        themeIconChange && "to-do-options-light"}
+                        themeIconChange ? "to-do-options-light" : ""}
                     >
-                        
                         <ul className=" to-do-options">
                             <li>
                                <p>{toDoContent.length} Items left</p>
                             </li>
                             <li
-                                className={filterActiveClass === 0 ? "filter-active" : ""}
-                                onClick={() => handleFilters(0)}>
+                                className={toDoType === "all" ? "filter-active" : ""}
+                                onClick={() => setToDoType("all")}>
                                 All
                             </li>
                             <li
-                                className={filterActiveClass === 1 ? "filter-active" : ""}
-                                onClick={() => handleFilters(1)}>
+                                className={toDoType === "active" ? "filter-active" : ""}
+                                onClick={() => setToDoType("active")}>
                                 Active
                             </li>
                             <li
-                                className={filterActiveClass === 2 ? "filter-active" : ""}
-                                onClick={() => handleFilters(2)}>
+                                className={toDoType === "completed" ? "filter-active" : ""}
+                                onClick={() => setToDoType("completed")}>
                                 Completed
                             </li>
                             <li>
@@ -33,7 +31,7 @@ handleFilters, handleClearCompleted}) {
                                         ? "clear-completed-light"
                                         : "clear-completed"
                                 }
-                                    onClick={handleClearCompleted}
+                                    onClick={() => setToDoType("clear")}
                                 >
                                     Clear Completed
                                 </p>

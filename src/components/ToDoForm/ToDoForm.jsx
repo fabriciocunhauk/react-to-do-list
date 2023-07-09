@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import './todos-form.css'
 
-function ToDoForm({ handleFilters, setToDoContent, toDoContent, themeIconChange}) {
+function ToDoForm({ toDoContent, themeIconChange, setToDoContent }) {
     const [inputContent, setInputContent] = useState("");
-
-      useEffect(() => {
-        localStorage.setItem('todo', JSON.stringify(toDoContent));
-    }, [toDoContent]);
 
      function handleSubmit(event) {
         event.preventDefault();
+         localStorage.setItem('todo', JSON.stringify([...toDoContent, { text: inputContent, active: "active" }]));
 
-        setToDoContent([...toDoContent, { toDoText: inputContent }]);
-        handleFilters(0);
+         const getToDos = localStorage.getItem('todo');
+        const toDos = getToDos ? JSON.parse(getToDos) : [];
+
+        setToDoContent(toDos)
         setInputContent("");
     }
 
@@ -27,6 +26,7 @@ function ToDoForm({ handleFilters, setToDoContent, toDoContent, themeIconChange}
                         type="text"
                         name="to-do"
                         id="to-do"
+                        placeholder="Create todo"
                         value={inputContent}
                         required
                         onChange={(event) => setInputContent(event.target.value)}
