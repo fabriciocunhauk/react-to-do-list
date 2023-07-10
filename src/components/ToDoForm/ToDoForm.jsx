@@ -1,25 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./todos-form.css";
 
 function ToDoForm({ toDoContent, themeIconChange, setToDoContent }) {
   const [inputContent, setInputContent] = useState("");
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    localStorage.setItem(
-      "todo",
-      JSON.stringify([
-        ...toDoContent,
-        { text: inputContent, active: "active" },
-      ]),
-    );
+   useEffect(() => {
+        localStorage.setItem('todo', JSON.stringify(toDoContent));
+    }, [toDoContent]);
 
-    const getToDos = localStorage.getItem("todo");
-    const toDos = getToDos ? JSON.parse(getToDos) : [];
+     function handleSubmit(event) {
+        event.preventDefault();
 
-    setToDoContent(toDos);
-    setInputContent("");
-  }
+        setToDoContent([...toDoContent, { text: inputContent, status: "active" }]);
+        setInputContent("");
+    }
 
   return (
     <form onSubmit={handleSubmit}>

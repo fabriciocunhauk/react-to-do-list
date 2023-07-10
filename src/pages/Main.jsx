@@ -10,8 +10,11 @@ import ToDosList from "../components/ToDosList/ToDosList";
 import ToDosFilter from "../components/ToDosFilter/ToDosFilter";
 
 function Main() {
-  const [toDoContent, setToDoContent] = useState([]);
-  const [toDoType, setToDoType] = useState("all");
+  const [toDoContent, setToDoContent] = useState(() => {
+    const getToDos = localStorage.getItem("todo");
+   return getToDos ? JSON.parse(getToDos) : [];
+  });
+  const [toDoStatus, setToDoStatus] = useState("all");
   const [themeIconChange, setThemeIconChange] = useState(false);
   const [themeIcon, setThemeIcon] = useState(moonIcon);
   const [themeBg, setThemeBg] = useState(darkBackground);
@@ -27,13 +30,6 @@ function Main() {
       setThemeIconChange(true);
     }
   }
-
-  useEffect(() => {
-    const getToDos = localStorage.getItem("todo");
-    const toDos = getToDos ? JSON.parse(getToDos) : [];
-
-    setToDoContent(toDos);
-  }, [toDoType]);
 
   return (
     <div
@@ -58,14 +54,14 @@ function Main() {
           <ToDosList
           setToDoContent={setToDoContent}
             toDoContent={toDoContent}
-            toDoType={toDoType}
-            setToDoType={setToDoType}
+            toDoStatus={toDoStatus}
+            setToDoStatus={setToDoStatus}
           />
           <ToDosFilter
             themeIconChange={themeIconChange}
             toDoContent={toDoContent}
-            setToDoType={setToDoType}
-            toDoType={toDoType}
+            setToDoStatus={setToDoStatus}
+            toDoStatus={toDoStatus}
           />
         </div>
       </div>

@@ -4,89 +4,66 @@ import checkedIcon from "../../assets/images/icon-check.svg";
 
 import "./todos-list.css";
 
-function ToDosList({ setToDoContent, toDoContent, setToDoType, toDoType }) {
-  const [toDosList, setToDosList] = useState(toDoContent);
+function ToDosListFilteredContent({ setToDoContent, toDoContent, setToDoStatus, toDoStatus }) {
+  const [toDosListFilteredContent, setToDosListFilteredContent] = useState(toDoContent);
 
   function handleDelete(todoIndex) {
     toDoContent.forEach((_todo, index) => {
       if (todoIndex === index) {
         toDoContent.splice(todoIndex, 1);
-        localStorage.setItem("todo", JSON.stringify([...toDoContent]));
+       return setToDoContent([...toDoContent]);
       }
-
-       const getToDos = localStorage.getItem("todo");
-      const toDos = getToDos ? JSON.parse(getToDos) : [];
-
-      setToDoContent(toDos);
     });
   }
 
-  function handleCompleted(todoIndex) {
+  function markToDoAsComplete(todoIndex) {
     toDoContent.forEach((todo, index) => {
       if (todoIndex === index) {
-        if (!todo.completed) {
+        if (todo.status !== "completed") {
           toDoContent.splice(todoIndex, 1);
-          localStorage.setItem(
-            "todo",
-            JSON.stringify([
-              ...toDoContent,
-              { text: todo.text, completed: "completed" },
-            ]),
-          );
+          return setToDoContent([...toDoContent, { text: todo.text, status: "completed" }]);
         } else {
           toDoContent.splice(todoIndex, 1);
-          localStorage.setItem(
-            "todo",
-            JSON.stringify([
-              ...toDoContent,
-              { text: todo.text, active: "active" },
-            ]),
-          );
+          return setToDoContent([...toDoContent, { text: todo.text, status: "active" }]);
         }
       }
-      const getToDos = localStorage.getItem("todo");
-      const toDos = getToDos ? JSON.parse(getToDos) : [];
-
-      setToDoContent(toDos);
     });
   }
 
   useEffect(() => {
-    if (toDoType === "all") {
-      setToDosList(toDoContent);
+    if (toDoStatus === "all") {
+      setToDosListFilteredContent(toDoContent);
     }
-    if (toDoType === "active") {
-      const activeTodo = toDoContent.filter((todo) => todo.active);
-      setToDosList(activeTodo);
+    if (toDoStatus === "active") {
+      const activeTodo = toDoContent.filter((todo) => todo.status === "active");
+      setToDosListFilteredContent(activeTodo);
     }
-    if (toDoType === "completed") {
-      const completedTodo = toDoContent.filter((todo) => todo.completed);
-      setToDosList(completedTodo);
+    if (toDoStatus === "completed") {
+      const completedTodo = toDoContent.filter((todo) => todo.status === "completed");
+      setToDosListFilteredContent(completedTodo);
     }
-    if (toDoType === "clear-completed") {
-      const getActiveToDos = toDoContent.filter((todo) => {
-        return todo.active;
-      });
-      localStorage.setItem("todo", JSON.stringify([...getActiveToDos]));
-      setToDoType("all");
+    if (toDoStatus === "clear-completed") {
+      const getActiveToDos = toDoContent.filter((todo) => todo.status === "active");
+      setToDoContent([...getActiveToDos]);
+      setToDoStatus("all");
     }
-  }, [setToDoType, toDoContent, toDoType]);
+  }, [setToDoContent, setToDoStatus, toDoContent, toDoStatus]);
 
   return (
     <ul className="to-dos-lists">
-      {toDosList.map((todo, todoIndex) => {
+      {toDosListFilteredContent.map((todo, todoIndex) => {
         return (
           <li className="todo" key={todoIndex}>
             <span>
               <div
                 className={
-                  todo.completed
+                  todo.status === "completed"
                     ? "completed-todo completed-todo-active"
                     : "completed-todo"
                 }
-                onClick={() => handleCompleted(todoIndex)}
+                onClick={() => markToDoAsComplete(todoIndex)}
               >
-                {todo.completed === "completed" && (
+                {todo.status === "completed" && (
                   <img src={checkedIcon} alt="checked" />
                 )}
               </div>
@@ -102,4 +79,4 @@ function ToDosList({ setToDoContent, toDoContent, setToDoType, toDoType }) {
   );
 }
 
-export default ToDosList;
+export default ToDosListFilteredContent;
