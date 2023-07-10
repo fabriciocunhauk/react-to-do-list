@@ -56,6 +56,7 @@ function Main() {
         />
         <div className={themeIconChange ? "to-dos-light to-dos" : "to-dos"}>
           <ToDosList
+          setToDoContent={setToDoContent}
             toDoContent={toDoContent}
             toDoType={toDoType}
             setToDoType={setToDoType}

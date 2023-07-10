@@ -30,7 +30,7 @@ function ToDosFilter({ themeIconChange, toDoContent, setToDoType, toDoType }) {
           className={
             themeIconChange ? "clear-completed-light" : "clear-completed"
           }
-          onClick={() => setToDoType("clear")}
+          onClick={() => setToDoType("clear-completed")}
         >
           Clear Completed
         </li>

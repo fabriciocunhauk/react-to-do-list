@@ -4,7 +4,7 @@ import checkedIcon from "../../assets/images/icon-check.svg";
 
 import "./todos-list.css";
 
-function ToDosList({ toDoContent, setToDoType, toDoType }) {
+function ToDosList({ setToDoContent, toDoContent, setToDoType, toDoType }) {
   const [toDosList, setToDosList] = useState(toDoContent);
 
   function handleDelete(todoIndex) {
@@ -13,7 +13,11 @@ function ToDosList({ toDoContent, setToDoType, toDoType }) {
         toDoContent.splice(todoIndex, 1);
         localStorage.setItem("todo", JSON.stringify([...toDoContent]));
       }
-      window.location.reload();
+
+       const getToDos = localStorage.getItem("todo");
+      const toDos = getToDos ? JSON.parse(getToDos) : [];
+
+      setToDoContent(toDos);
     });
   }
 
@@ -40,7 +44,10 @@ function ToDosList({ toDoContent, setToDoType, toDoType }) {
           );
         }
       }
-      window.location.reload();
+      const getToDos = localStorage.getItem("todo");
+      const toDos = getToDos ? JSON.parse(getToDos) : [];
+
+      setToDoContent(toDos);
     });
   }
 
@@ -56,7 +63,7 @@ function ToDosList({ toDoContent, setToDoType, toDoType }) {
       const completedTodo = toDoContent.filter((todo) => todo.completed);
       setToDosList(completedTodo);
     }
-    if (toDoType === "clear") {
+    if (toDoType === "clear-completed") {
       const getActiveToDos = toDoContent.filter((todo) => {
         return todo.active;
       });
