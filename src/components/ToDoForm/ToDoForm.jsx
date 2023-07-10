@@ -30,7 +30,7 @@ function ToDoForm({ toDoContent, themeIconChange, setToDoContent }) {
         type="text"
         name="to-do"
         id="to-do"
-        placeholder="Create todo"
+        placeholder="Add todo"
         value={inputContent}
         required
         onChange={(event) => setInputContent(event.target.value)}
