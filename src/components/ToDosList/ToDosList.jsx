@@ -16,19 +16,21 @@ function ToDosListFilteredContent({ setToDoContent, toDoContent, setToDoStatus, 
     });
   }
 
-  function markToDoAsComplete(todoIndex) {
-    toDoContent.forEach((todo, index) => {
-      if (todoIndex === index) {
-        if (todo.status !== "completed") {
-          toDoContent.splice(todoIndex, 1);
-          return setToDoContent([...toDoContent, { text: todo.text, status: "completed" }]);
-        } else {
-          toDoContent.splice(todoIndex, 1);
-          return setToDoContent([...toDoContent, { text: todo.text, status: "active" }]);
-        }
-      }
-    });
-  }
+  function markToDoAsComplete(ToDoIndex) {
+        let notesArray = [...toDoContent];
+
+        notesArray = notesArray.filter((note, noteIndex) => {
+            if (noteIndex === ToDoIndex) {
+                if (note.status === "active") {
+                  note.status = "completed";
+                } else {
+                    note.status = "active";
+                }
+            }
+
+            return setToDoContent(notesArray);
+        });
+    }
 
   useEffect(() => {
     if (toDoStatus === "all") {
