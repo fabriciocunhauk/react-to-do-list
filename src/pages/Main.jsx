@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import darkBackground from "../assets/images/bg-desktop-dark.jpg";
 import lightBackground from "../assets/images/bg-desktop-light.jpg";
 import moonIcon from "../assets/images/icon-moon.svg";
